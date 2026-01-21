@@ -56,15 +56,13 @@ To set up the project locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/swasal/Aesthetic-Restaurant.git
+   git clone https://github.com/ah-nd-naf/Aesthetic-Restaurant.git
 
 ---
 
 ## contributing   
-- **@[swasal](https://github.com/swasal)**
-- **@[JahanFab](https://github.com/JahanFab)**
-- **@[TanvirKabir1999](https://github.com/TanvirKabir1999)**
 - **@[ah-nd-naf](https://github.com/ah-nd-naf)**
+
 
 
 
