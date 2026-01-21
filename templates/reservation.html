@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+        <div class="container">
+            <h2 class="text-center mb-4">Make a Reservation</h2>
+            <form>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="date" class="form-label">Reservation Date</label>
+                        <input type="date" class="form-control" id="date" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="time" class="form-label">Reservation Time</label>
+                        <input type="time" class="form-control" id="time" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="guests" class="form-label">Number of Guests</label>
+                        <input type="number" class="form-control" id="guests" placeholder="Enter number of guests" min="1" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="specialRequests" class="form-label">Special Requests</label>
+                    <textarea class="form-control" id="specialRequests" rows="3" placeholder="Any special requests?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Reservation</button>
+            </form>
+        </div>
+{% endblock %}

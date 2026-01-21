@@ -1,0 +1,184 @@
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h3 class="text-light">
+        <small class="text-light text-opacity-25">item</small>
+        {{ item.name }}| {{ item.itemcode }}
+
+    </h3>
+    <!-- admin control -->
+    {% if admin %}
+    <br><br><br>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button type="button" id="btn_edit" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="text-align: right;" >Edit item</button>
+        <button type="button" id="btn_edit" class="btn btn-outline-danger" style="text-align: right;" action="" onclick="window.location.href='{{ url_for('deletemenu', item_id=item.itemcode) }}'">Delete item</button>
+    </div>
+    {% endif %}
+    <br><br>
+
+    {% if allergic %}
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="background-color: red;">
+        <p> Warning! the item contains ingriedients that you are allergic to! </p>
+
+    </div>    
+    {% endif %}
+
+    <!-- MEnu pictures -->
+
+    <div class="container text-center align-items-center">
+        <div class="row align-items-center">
+            <div class="col-9 align-items-center" style="width: 100%;">
+                
+                <!--actuakl carousel  -->
+                <div id="carouselExample" class="carousel slide align-items-center" style="width: 100%;">
+
+                    <div class="carousel-inner align-items-center" >
+        
+                        <div class="carousel-item active align-items-center" style>
+                            <img src="{{ url_for('static', filename='menupic/'+item.pictures[0]) }}" class="d-block w-100" style="object-fit: contain;" alt="A picture of {{item.name}}">
+                            <div class="carousel-caption d-none d-md-block">
+                              </div>
+                        </div>
+        
+                        {% for i in item.pictures[1:] %}
+                        <div class="carousel-item align-items-center">
+                            <img src="{{ url_for('static', filename='menupic/'+i) }}" class="d-block w-100" alt="A picture of {{item.name}}">
+                            <div class="carousel-caption d-none d-md-block">
+                              </div>
+                        </div>
+                        {% endfor %}
+                    
+                    </div>
+                    
+        
+                    <!-- Buttons for navigation -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                
+
+            </div>
+            <div class="col">
+                
+            </div>
+        </div>
+      </div>
+
+
+
+    
+        
+    
+    
+    
+
+
+    <br><br><br>
+
+
+
+    <!-- itemion stats in details -->
+
+    <dl class="row text-light">
+        <dt class="col-sm-3 text-truncate text-light fw-bolder text-opacity-50 text-end">Name</dt>
+        <dd class="col-sm-9 text-light ">{{ item.name }}</dd>
+        <br><br>
+
+        <dt class="col-sm-3 text-truncate text-light fw-bolder text-opacity-50 text-end">Description</dt>
+        <dd class="col-sm-9 text-light ">{{item.description}}</dd>
+        <br><br>
+
+        <dt class="col-sm-3 text-truncate text-light fw-bolder text-opacity-50 text-end">ingriedients</dt>
+        <dd class="col-sm-9 text-light">
+            <ul>
+                {% for j in item.ingredients %}
+                <li>{{ j }}</li>
+                {% endfor %}
+            </ul>
+        </dd>
+        <br><br>
+
+
+        <dt class="col-sm-3 text-truncate text-light fw-bolder text-opacity-50 text-end">price</dt>
+        <dd class="col-sm-9 text-light">{{item.price}}</dd>
+        <br><br>
+        
+        
+        
+        
+
+    </dl>
+
+
+
+
+    
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit item</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                
+                <!-- form to edit menu -->
+
+                <form id="editmenu" class="row g-3" action="{{ url_for('menu', item_id=item.itemcode) }}" method="post">
+
+                    <!-- Name -->
+                    <div class="col-12">
+                        <label for="inputName" class="form-label">Name</label>
+                        <input type="text" class="form-control" name="inputName" placeholder="Name" value="{{item.name}}">
+                    </div>
+
+                    <!-- Description -->
+                    <div class="col-12">
+                        <label for="inputPreferredIngredients" class="form-label">Description</label>
+                        <textarea class="form-control" name="inputPreferredIngredients" placeholder="Describe the item that you are adding..." rows="2" >{{ item.description }}</textarea>
+                    </div>
+
+                      <!-- Ingredients -->
+                    <div class="col-12">
+                        <label for="inputPreferredIngredients" class="form-label">Ingredients</label>
+                        <textarea class="form-control" name="inputPreferredIngredients" placeholder="List the ingriedients seperate with ';' " rows="2" >{{ item.ingredients }}</textarea>
+                    </div>                 
+      
+                    <!-- Weight -->
+                    <div class="col-md-6">
+                      <label for="price" class="form-label">Price</label>
+                      <input type="number" class="form-control" name="price" placeholder="e.g., 650" value="{{ item.price }}">
+                    </div>
+
+                </form>
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Discrad</button>
+                <button type="submit" form="editmenu" class="btn btn-outline-success">Confirm</button>
+            </div>
+
+        </div>
+        </div>
+    </div>
+    
+
+  
+{% endblock %}
+
+
+
+{% if admin==True %}
+{% endif %}
